@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Manage;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lesson;
+use App\Models\Offering;
 use App\Models\Student;
 use App\Tenancy\CurrentTeacher;
 use Illuminate\View\View;
@@ -16,6 +18,8 @@ class DashboardController extends Controller
         return view('manage.dashboard', [
             'teacher' => $teacher,
             'studentsCount' => Student::query()->count(),
+            'classesCount' => Offering::query()->count(),
+            'lessonsCount' => Lesson::query()->count(),
             'latestStudents' => Student::query()->with('user')->latest()->limit(5)->get(),
             'trialDaysLeft' => $teacher->trial_ends_on
                 ? max(0, (int) now(config('nexora.display_timezone'))->startOfDay()->diffInDays($teacher->trial_ends_on, false))

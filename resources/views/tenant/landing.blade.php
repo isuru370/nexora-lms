@@ -40,11 +40,23 @@
 
     <section class="mx-auto max-w-6xl px-5 py-16 sm:px-8">
         <h2 class="text-2xl font-semibold tracking-tight text-slate-900">{{ __('Classes') }}</h2>
-        <x-ui.card class="mt-6">
-            <x-ui.empty-state icon="book" :title="__('Classes are coming soon')" :description="__('This teacher is setting up their classes. Register now to be the first to know.')">
-                <x-ui.button :href="route('student.register')" variant="brand">{{ __('Register') }}</x-ui.button>
-            </x-ui.empty-state>
-        </x-ui.card>
+
+        @forelse ($offerings as $subject => $group)
+            <div class="mt-8">
+                <h3 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ $subject }}</h3>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($group as $offering)
+                        <x-offering.card :offering="$offering" />
+                    @endforeach
+                </div>
+            </div>
+        @empty
+            <x-ui.card class="mt-6">
+                <x-ui.empty-state icon="book" :title="__('Classes are coming soon')" :description="__('This teacher is setting up their classes. Register now to be the first to know.')">
+                    <x-ui.button :href="route('student.register')" variant="brand">{{ __('Register') }}</x-ui.button>
+                </x-ui.empty-state>
+            </x-ui.card>
+        @endforelse
     </section>
 
     <footer class="border-t border-slate-100 py-8 text-center text-sm text-slate-500">
