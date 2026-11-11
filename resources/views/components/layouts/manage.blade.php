@@ -6,12 +6,8 @@
 
 <x-layouts.panel :title="$title" :subtitle="$subtitle" :brand-color="$teacher->brandColor()" :page-title="$teacher->display_name" logout-route="manage.logout">
     <x-slot:brand>
-        <a href="{{ route('manage.dashboard') }}" class="flex min-w-0 items-center gap-3">
-            <x-ui.avatar :initials="$teacher->initials()" :color="$teacher->brandColor()" size="sm" class="ring-ink-800" />
-            <span class="min-w-0">
-                <span class="block truncate text-sm font-semibold text-white">{{ $teacher->display_name }}</span>
-                <span class="block truncate text-xs text-ink-300">{{ __('Teacher panel') }}</span>
-            </span>
+        <a href="{{ route('manage.dashboard') }}" class="min-w-0">
+            <x-teacher.brand :teacher="$teacher" dark :subtitle="__('Teacher panel')" />
         </a>
     </x-slot:brand>
 
@@ -30,7 +26,9 @@
 
         <p class="px-3 pt-5 pb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{{ __('Site') }}</p>
         <x-ui.nav-link :href="route('tenant.home')" icon="external" target="_blank">{{ __('View my site') }}</x-ui.nav-link>
-        <x-ui.nav-link icon="settings" soon>{{ __('Settings') }}</x-ui.nav-link>
+        @if (auth()->user()->role === \App\Enums\Role::Teacher)
+            <x-ui.nav-link :href="route('manage.settings')" icon="settings" :active="request()->routeIs('manage.settings*')">{{ __('Settings') }}</x-ui.nav-link>
+        @endif
     </x-slot:nav>
 
     @isset($actions)

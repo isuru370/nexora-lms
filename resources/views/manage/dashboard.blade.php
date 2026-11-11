@@ -39,12 +39,30 @@
         </x-ui.card>
 
         <x-ui.card :title="__('Get started')">
+            @php
+                $brandDone = $teacher->logo_path || $teacher->photo_path || $teacher->brand_color;
+                $isOwner = auth()->user()->role === \App\Enums\Role::Teacher;
+            @endphp
             <ul class="space-y-3 text-sm">
-                @foreach ([
-                    __('Add your logo and colour'),
-                    __('Create your first class'),
-                    __('Add your first lesson'),
-                ] as $step)
+                <li>
+                    @if ($isOwner && ! $brandDone)
+                        <a href="{{ route('manage.settings') }}" class="group flex items-center gap-3 text-slate-700 hover:text-accent-700">
+                            <span class="size-5 shrink-0 rounded-full ring-2 ring-slate-200 group-hover:ring-accent-300"></span>
+                            {{ __('Add your photo, logo and colour') }}
+                            <x-ui.icon name="arrow-right" class="ml-auto size-4 text-slate-400 group-hover:text-accent-600" />
+                        </a>
+                    @else
+                        <span class="flex items-center gap-3 {{ $brandDone ? 'text-slate-400 line-through' : 'text-slate-500' }}">
+                            @if ($brandDone)
+                                <span class="grid size-5 shrink-0 place-items-center rounded-full bg-emerald-500 text-white"><x-ui.icon name="check" class="size-3" /></span>
+                            @else
+                                <span class="size-5 shrink-0 rounded-full ring-2 ring-slate-200"></span>
+                            @endif
+                            {{ __('Add your photo, logo and colour') }}
+                        </span>
+                    @endif
+                </li>
+                @foreach ([__('Create your first class'), __('Add your first lesson')] as $step)
                     <li class="flex items-center gap-3 text-slate-500">
                         <span class="size-5 shrink-0 rounded-full ring-2 ring-slate-200"></span>
                         {{ $step }}

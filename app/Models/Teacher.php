@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * The tenant. Not scoped itself.
  */
 #[Fillable([
-    'slug', 'display_name', 'subject_line', 'logo_path', 'brand_color',
+    'slug', 'display_name', 'subject_line', 'photo_path', 'bio', 'logo_path', 'brand_color',
     'phone', 'whatsapp', 'status', 'trial_ends_on', 'features', 'custom_domain',
 ])]
 class Teacher extends Model
@@ -55,6 +55,16 @@ class Teacher extends Model
     public function url(string $path = '/'): string
     {
         return Domains::tenantUrl($this->slug, $path);
+    }
+
+    public function photoUrl(): ?string
+    {
+        return $this->photo_path ? asset('storage/'.$this->photo_path) : null;
+    }
+
+    public function logoUrl(): ?string
+    {
+        return $this->logo_path ? asset('storage/'.$this->logo_path) : null;
     }
 
     public function brandColor(): string

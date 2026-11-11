@@ -18,9 +18,8 @@
     <div class="min-h-full pb-20 sm:pb-0">
         <header class="sticky top-0 z-30 border-b border-slate-200/70 bg-white/85 backdrop-blur">
             <div class="mx-auto flex h-16 max-w-5xl items-center gap-4 px-4 sm:px-6">
-                <a href="{{ route('student.dashboard') }}" class="flex min-w-0 items-center gap-3">
-                    <x-ui.avatar :initials="$teacher->initials()" :color="$teacher->brandColor()" size="sm" />
-                    <span class="truncate text-base font-semibold text-slate-900">{{ $teacher->display_name }}</span>
+                <a href="{{ route('student.dashboard') }}" class="min-w-0">
+                    <x-teacher.brand :teacher="$teacher" />
                 </a>
 
                 <nav class="ml-6 hidden flex-1 items-center gap-1 sm:flex">

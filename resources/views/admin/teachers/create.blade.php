@@ -1,5 +1,5 @@
 <x-layouts.admin :title="__('New teacher')">
-    <form method="POST" action="{{ route('admin.teachers.store') }}" class="mx-auto max-w-2xl space-y-6"
+    <form method="POST" action="{{ route('admin.teachers.store') }}" enctype="multipart/form-data" class="mx-auto max-w-2xl space-y-6"
           x-data="{ slug: @js(old('slug', '')), touched: @js(old('slug') !== null), name: @js(old('display_name', '')) }">
         @csrf
 
@@ -21,6 +21,16 @@
                         <span class="font-medium text-ink-700" x-text="slug + '.{{ \App\Support\Domains::base() }}'"></span>
                     </p>
                 </div>
+            </div>
+        </x-ui.card>
+
+        <x-ui.card :title="__('Profile')" :description="__('Optional. The teacher can change these later in Settings.')">
+            <div class="space-y-6">
+                <div class="grid gap-6 sm:grid-cols-2">
+                    <x-ui.image-upload name="photo" :label="__('Teacher photo')" shape="circle" :hint="__('Square photo works best. JPG, PNG or WebP, up to 2 MB.')" />
+                    <x-ui.image-upload name="logo" :label="__('Logo')" shape="square" :hint="__('PNG with a transparent background is best.')" />
+                </div>
+                <x-ui.textarea name="bio" :label="__('Short description')" :max="300" :placeholder="__('e.g. Teaching A/L Physics in Sinhala medium for 10 years. Theory, revision and paper classes.')" :hint="__('Shown on the site under the name.')" />
             </div>
         </x-ui.card>
 
