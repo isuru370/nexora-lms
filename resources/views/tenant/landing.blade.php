@@ -7,10 +7,10 @@
             </span>
             <div class="flex items-center gap-2">
                 @auth
-                    <x-ui.button :href="route('student.dashboard')" variant="gold" size="sm">{{ __('My dashboard') }}</x-ui.button>
+                    <x-ui.button :href="route('student.dashboard')" variant="light" size="sm">{{ __('My dashboard') }}</x-ui.button>
                 @else
-                    <x-ui.button :href="route('student.login')" variant="ghost" size="sm" class="text-navy-100 hover:bg-white/10 hover:text-white">{{ __('Log in') }}</x-ui.button>
-                    <x-ui.button :href="route('student.register')" variant="gold" size="sm">{{ __('Register') }}</x-ui.button>
+                    <x-ui.button :href="route('student.login')" variant="ghost" size="sm" class="text-ink-100 hover:bg-white/10 hover:text-white">{{ __('Log in') }}</x-ui.button>
+                    <x-ui.button :href="route('student.register')" variant="light" size="sm">{{ __('Register') }}</x-ui.button>
                 @endauth
             </div>
         </div>
@@ -22,11 +22,11 @@
             <x-ui.avatar :initials="$teacher->initials()" :color="$teacher->brandColor()" size="xl" class="mx-auto ring-4 ring-white/10" />
             <h1 class="mt-6 text-4xl font-semibold tracking-tight text-white sm:text-5xl">{{ $teacher->display_name }}</h1>
             @if ($teacher->subject_line)
-                <p class="mt-3 text-lg text-navy-200">{{ $teacher->subject_line }}</p>
+                <p class="mt-3 text-lg text-ink-200">{{ $teacher->subject_line }}</p>
             @endif
 
             <div class="mt-10 flex flex-wrap items-center justify-center gap-3">
-                <x-ui.button :href="route('student.register')" variant="gold" size="lg">
+                <x-ui.button :href="route('student.register')" variant="light" size="lg">
                     {{ __('Join a class') }} <x-ui.icon name="arrow-right" class="size-4" />
                 </x-ui.button>
                 @if ($teacher->whatsapp)
@@ -48,6 +48,6 @@
     </section>
 
     <footer class="border-t border-slate-100 py-8 text-center text-sm text-slate-500">
-        {{ __('Powered by') }} <span class="font-semibold text-navy-900">Nexora<span class="text-gold-600">LMS</span></span>
+        {{ __('Powered by') }} <span class="font-semibold text-ink-900">Nexora<span class="text-accent-600">LMS</span></span>
     </footer>
 </x-layouts.base>

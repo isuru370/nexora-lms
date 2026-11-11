@@ -6,40 +6,42 @@
 @source '../**/*.js';
 
 /*
- * NexoraLMS design tokens: deep navy base, warm gold accent.
+ * NexoraLMS design tokens: red gradient.
+ *  ink-*    deep wine/maroon base (sidebars, hero, headings on dark)
+ *  accent-* vivid red (buttons, highlights, gradients)
  * --color-brand is overridden per teacher (their brand colour) on <body>.
  */
 @theme {
     --font-sans: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji';
 
-    --color-navy-50: #f2f5fb;
-    --color-navy-100: #e3e9f5;
-    --color-navy-200: #c5d1ea;
-    --color-navy-300: #9aaed8;
-    --color-navy-400: #6a84c0;
-    --color-navy-500: #4766a8;
-    --color-navy-600: #354f8c;
-    --color-navy-700: #2b3f71;
-    --color-navy-800: #1f2e55;
-    --color-navy-900: #16213f;
-    --color-navy-950: #0d1428;
+    --color-ink-50: #fdf3f4;
+    --color-ink-100: #fbe4e7;
+    --color-ink-200: #f5c2c9;
+    --color-ink-300: #e9939f;
+    --color-ink-400: #d46374;
+    --color-ink-500: #b23a4d;
+    --color-ink-600: #8f2738;
+    --color-ink-700: #6e1c2a;
+    --color-ink-800: #50131e;
+    --color-ink-900: #370c14;
+    --color-ink-950: #22060b;
 
-    --color-gold-50: #fdf9ec;
-    --color-gold-100: #faf0cc;
-    --color-gold-200: #f4df95;
-    --color-gold-300: #edca5c;
-    --color-gold-400: #e3b536;
-    --color-gold-500: #c9a227;
-    --color-gold-600: #a7801d;
-    --color-gold-700: #85601b;
-    --color-gold-800: #6e4e1c;
-    --color-gold-900: #5d411c;
+    --color-accent-50: #fef2f2;
+    --color-accent-100: #fee2e2;
+    --color-accent-200: #fecaca;
+    --color-accent-300: #fca5a5;
+    --color-accent-400: #f87171;
+    --color-accent-500: #ef4444;
+    --color-accent-600: #dc2626;
+    --color-accent-700: #b91c1c;
+    --color-accent-800: #991b1b;
+    --color-accent-900: #7f1d1d;
 
-    --color-brand: #c9a227;
+    --color-brand: #dc2626;
 
-    --shadow-card: 0 1px 2px rgb(13 20 40 / 0.04), 0 4px 16px -4px rgb(13 20 40 / 0.08);
-    --shadow-float: 0 10px 40px -10px rgb(13 20 40 / 0.25);
+    --shadow-card: 0 1px 2px rgb(34 6 11 / 0.04), 0 4px 16px -4px rgb(34 6 11 / 0.08);
+    --shadow-float: 0 10px 40px -10px rgb(34 6 11 / 0.3);
 }
 
 @layer base {
@@ -60,9 +62,16 @@
 @layer components {
     .bg-hero {
         background-image:
-            radial-gradient(60rem 30rem at 110% -10%, rgb(201 162 39 / 0.22), transparent 60%),
-            radial-gradient(40rem 30rem at -10% 110%, rgb(71 102 168 / 0.35), transparent 60%),
-            linear-gradient(160deg, var(--color-navy-900), var(--color-navy-950));
+            radial-gradient(50rem 28rem at 105% -15%, rgb(251 113 133 / 0.45), transparent 60%),
+            radial-gradient(40rem 30rem at -10% 115%, rgb(124 18 38 / 0.9), transparent 60%),
+            linear-gradient(135deg, #3b0a13 0%, #7f1d1d 45%, #c81e1e 100%);
+    }
+
+    .text-gradient {
+        background-image: linear-gradient(90deg, #fecaca, #ffffff 60%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 
     .bg-grid {

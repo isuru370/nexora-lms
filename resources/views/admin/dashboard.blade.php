@@ -7,7 +7,7 @@
         <x-ui.stat :label="__('Teachers')" :value="number_format($stats['teachers'])" icon="users" />
         <x-ui.stat :label="__('On trial')" :value="number_format($stats['trial'])" icon="sparkles" tone="blue" />
         <x-ui.stat :label="__('Active (paying)')" :value="number_format($stats['active'])" icon="check-circle" tone="green" />
-        <x-ui.stat :label="__('Students on platform')" :value="number_format($stats['students'])" icon="graduation" tone="gold" />
+        <x-ui.stat :label="__('Students on platform')" :value="number_format($stats['students'])" icon="graduation" tone="accent" />
     </div>
 
     <x-ui.card class="mt-6" :title="__('Latest teachers')" :padding="false">
@@ -20,7 +20,7 @@
                 <x-ui.avatar :initials="$teacher->initials()" :color="$teacher->brandColor()" size="sm" />
                 <div class="min-w-0 flex-1">
                     <p class="truncate text-sm font-medium text-slate-900">{{ $teacher->display_name }}</p>
-                    <a href="{{ $teacher->url() }}" target="_blank" class="truncate text-xs text-slate-500 hover:text-navy-700">{{ \App\Support\Domains::tenantHost($teacher->slug) }}</a>
+                    <a href="{{ $teacher->url() }}" target="_blank" class="truncate text-xs text-slate-500 hover:text-ink-700">{{ \App\Support\Domains::tenantHost($teacher->slug) }}</a>
                 </div>
                 <x-ui.badge :color="$teacher->status->color()">{{ $teacher->status->label() }}</x-ui.badge>
             </div>

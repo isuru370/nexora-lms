@@ -2,10 +2,10 @@
     <section class="bg-hero relative overflow-hidden rounded-3xl px-6 py-8 sm:px-8 sm:py-10">
         <div class="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_70%)]"></div>
         <div class="relative">
-            <p class="text-sm font-medium text-gold-300">{{ __('Hello,') }}</p>
+            <p class="text-sm font-medium text-accent-100">{{ __('Hello,') }}</p>
             <h1 class="mt-1 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{{ $user->name }}</h1>
-            <div class="mt-4 flex flex-wrap items-center gap-2 text-sm text-navy-200">
-                <x-ui.badge color="gold" class="bg-white/10 text-gold-200 ring-white/15">{{ $student?->student_code }}</x-ui.badge>
+            <div class="mt-4 flex flex-wrap items-center gap-2 text-sm text-ink-200">
+                <x-ui.badge color="accent" class="bg-white/10 text-white ring-white/20">{{ $student?->student_code }}</x-ui.badge>
                 @if ($student?->grade)
                     <span>· {{ $student->grade }}</span>
                 @endif

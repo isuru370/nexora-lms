@@ -14,7 +14,7 @@
     $inputValue = $type === 'password' ? null : old($name, $value);
     $ring = $error
         ? 'ring-red-300 focus-within:ring-red-500'
-        : 'ring-slate-200 focus-within:ring-navy-500';
+        : 'ring-slate-200 focus-within:ring-ink-500';
 @endphp
 
 <div {{ $attributes->only('class')->merge(['class' => 'space-y-1.5']) }}>
@@ -22,7 +22,7 @@
         <label for="{{ $id }}" class="block text-sm font-medium text-slate-700">
             {{ $label }}
             @if ($attributes->has('required'))
-                <span class="text-gold-600">*</span>
+                <span class="text-accent-600">*</span>
             @endif
         </label>
     @endif

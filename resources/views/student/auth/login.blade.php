@@ -12,7 +12,7 @@
         <x-ui.input name="password" type="password" :label="__('Password')" autocomplete="current-password" required />
 
         <label class="flex items-center gap-2 text-sm text-slate-600">
-            <input type="checkbox" name="remember" value="1" checked class="size-4 rounded border-slate-300 text-navy-900 focus:ring-navy-500">
+            <input type="checkbox" name="remember" value="1" checked class="size-4 rounded border-slate-300 text-ink-900 focus:ring-ink-500">
             {{ __('Keep me logged in') }}
         </label>
 
@@ -21,6 +21,6 @@
 
     <x-slot:footer>
         {{ __('New here?') }}
-        <a href="{{ route('student.register') }}" class="font-semibold text-navy-800 hover:underline">{{ __('Create an account') }}</a>
+        <a href="{{ route('student.register') }}" class="font-semibold text-ink-800 hover:underline">{{ __('Create an account') }}</a>
     </x-slot:footer>
 </x-layouts.auth>

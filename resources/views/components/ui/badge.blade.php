@@ -7,8 +7,8 @@
         'green' => 'bg-emerald-50 text-emerald-700 ring-emerald-200',
         'amber' => 'bg-amber-50 text-amber-800 ring-amber-200',
         'red' => 'bg-red-50 text-red-700 ring-red-200',
-        'gold' => 'bg-gold-50 text-gold-800 ring-gold-200',
-        'navy' => 'bg-navy-50 text-navy-700 ring-navy-200',
+        'accent' => 'bg-accent-50 text-accent-800 ring-accent-200',
+        'ink' => 'bg-ink-50 text-ink-700 ring-ink-200',
     ];
 @endphp
 

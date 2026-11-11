@@ -13,7 +13,7 @@
 
 @php
     $brandName = $teacher?->display_name ?? config('app.name');
-    $brandColor = $teacher?->brandColor() ?? '#c9a227';
+    $brandColor = $teacher?->brandColor() ?? '#dc2626';
 @endphp
 
 <x-layouts.base :title="$title" :brand="$brandName" style="--color-brand: {{ $brandColor }}" class="bg-white">
@@ -37,14 +37,14 @@
                 <h2 class="text-3xl font-semibold leading-tight tracking-tight text-white">
                     {{ $panelTitle ?? __('Teach online. Get paid on time.') }}
                 </h2>
-                <p class="mt-4 max-w-md text-base leading-relaxed text-navy-200">
+                <p class="mt-4 max-w-md text-base leading-relaxed text-ink-200">
                     {{ $panelText ?? __('Classes, video lessons, live Zoom sessions and fee collection — in one simple place.') }}
                 </p>
             </div>
 
-            <p class="relative text-sm text-navy-300">
+            <p class="relative text-sm text-ink-300">
                 @if ($teacher)
-                    {{ __('Powered by') }} <span class="font-semibold text-gold-300">NexoraLMS</span>
+                    {{ __('Powered by') }} <span class="font-semibold text-white">NexoraLMS</span>
                 @else
                     &copy; {{ now()->year }} NexoraLMS
                 @endif
