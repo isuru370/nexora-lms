@@ -7,6 +7,7 @@ use App\Enums\TeacherStatus;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Support\AuditLogger;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -14,16 +15,19 @@ use Illuminate\Support\Facades\DB;
  */
 class CreateTeacher
 {
+    public function __construct(private TeacherMedia $media) {}
+
     /**
-     * @param  array{slug: string, display_name: string, subject_line?: ?string, owner_name: string, phone: string, email?: ?string, password: string}  $data
+     * @param  array{slug: string, display_name: string, subject_line?: ?string, bio?: ?string, owner_name: string, phone: string, email?: ?string, password: string, photo?: ?UploadedFile, logo?: ?UploadedFile}  $data
      */
     public function handle(array $data): Teacher
     {
-        return DB::transaction(function () use ($data): Teacher {
+        $teacher = DB::transaction(function () use ($data): Teacher {
             $teacher = Teacher::create([
                 'slug' => $data['slug'],
                 'display_name' => $data['display_name'],
                 'subject_line' => $data['subject_line'] ?? null,
+                'bio' => $data['bio'] ?? null,
                 'phone' => $data['phone'],
                 'whatsapp' => $data['phone'],
                 'status' => TeacherStatus::Trial,
@@ -45,5 +49,16 @@ class CreateTeacher
 
             return $teacher;
         });
+
+        // Images after the commit, so a failed insert leaves no files behind.
+        if (($data['photo'] ?? null) instanceof UploadedFile) {
+            $this->media->storePhoto($teacher, $data['photo']);
+        }
+
+        if (($data['logo'] ?? null) instanceof UploadedFile) {
+            $this->media->storeLogo($teacher, $data['logo']);
+        }
+
+        return $teacher;
     }
 }

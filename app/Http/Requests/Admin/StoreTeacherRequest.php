@@ -31,6 +31,9 @@ class StoreTeacherRequest extends FormRequest
         return [
             'display_name' => ['required', 'string', 'max:100'],
             'subject_line' => ['nullable', 'string', 'max:150'],
+            'bio' => ['nullable', 'string', 'max:300'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048', 'dimensions:min_width=128,min_height=128'],
+            'logo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048', 'dimensions:min_width=64,min_height=64'],
             'slug' => [
                 'required', 'string', 'min:3', 'max:30',
                 'regex:/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/',
@@ -54,6 +57,8 @@ class StoreTeacherRequest extends FormRequest
             'slug.not_in' => __('This site name is reserved.'),
             'slug.unique' => __('This site name is already taken.'),
             'phone.regex' => __('Enter a valid mobile number, e.g. 077 123 4567.'),
+            'photo.dimensions' => __('The photo must be at least 128 × 128 pixels.'),
+            'logo.dimensions' => __('The logo must be at least 64 × 64 pixels.'),
         ];
     }
 }

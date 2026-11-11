@@ -27,6 +27,7 @@ composer install
 copy .env.example .env        # cp on Linux/macOS
 php artisan key:generate
 php artisan migrate --seed
+php artisan storage:link
 npm install
 npm run build
 ```
@@ -41,6 +42,17 @@ Demo logins after `--seed` (password is `password` for all):
 | `kasun.nexoralms.localhost/login` | `071 000 0001` |
 
 Create a real Super Admin with `php artisan nexora:create-super-admin`.
+
+## Deploy and production check
+
+```bash
+php artisan nexora:deploy     # every deploy (Coolify post-deployment command)
+php artisan nexora:doctor     # check readiness any time; --production to use production rules locally
+```
+
+`nexora:deploy` puts the site in maintenance mode (production only), runs migrations, seeds platform data (`PlatformSeeder`, safe to run every time), creates the storage link, builds caches, restarts queue workers, brings the site back and runs `nexora:doctor`. It exits non-zero if anything fails, so a broken deploy is marked as failed.
+
+The first time on a new server, also run `php artisan nexora:create-super-admin`.
 
 ## Tests
 
