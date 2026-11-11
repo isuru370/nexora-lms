@@ -10,6 +10,7 @@ use App\Services\Teachers\CreateTeacher;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Throwable;
 
 class TeacherController extends Controller
 {
@@ -38,13 +39,39 @@ class TeacherController extends Controller
 
     public function store(StoreTeacherRequest $request, CreateTeacher $createTeacher): RedirectResponse
     {
-        $teacher = $createTeacher->handle($request->validated());
+        $teacher = $createTeacher->handle($request->validated(), sendInvite: false);
+        $email = $request->validated('email');
 
-        return redirect()
-            ->route('admin.teachers.index')
-            ->with('status', __(':name is ready at :url', [
+        try {
+            $createTeacher->sendInvite($teacher);
+            $message = __(':name is ready at :url. Login details were sent to :email.', [
                 'name' => $teacher->display_name,
                 'url' => $teacher->url(),
-            ]));
+                'email' => $email,
+            ]);
+        } catch (Throwable $e) {
+            report($e);
+            $message = __(':name is ready at :url, but the email could not be sent. Check the mail settings, then use "Resend invite".', [
+                'name' => $teacher->display_name,
+                'url' => $teacher->url(),
+            ]);
+        }
+
+        return redirect()->route('admin.teachers.index')->with('status', $message);
+    }
+
+    public function invite(Teacher $teacher, CreateTeacher $createTeacher): RedirectResponse
+    {
+        try {
+            $createTeacher->sendInvite($teacher);
+        } catch (Throwable $e) {
+            report($e);
+
+            return back()->withErrors(['invite' => __('The email could not be sent. Check the mail settings in .env.')]);
+        }
+
+        return back()->with('status', __('A new login link was sent to :email.', [
+            'email' => $teacher->owner()->value('email'),
+        ]));
     }
 }

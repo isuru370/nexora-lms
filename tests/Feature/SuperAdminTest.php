@@ -6,7 +6,9 @@ use App\Enums\Role;
 use App\Enums\TeacherStatus;
 use App\Models\AuditLog;
 use App\Models\Teacher;
+use App\Notifications\TeacherInvitation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\Concerns\BuildsTenant;
 use Tests\TestCase;
 
@@ -26,7 +28,6 @@ class SuperAdminTest extends TestCase
             'owner_name' => 'Kasun Perera',
             'phone' => '077 123 4567',
             'email' => 'kasun@example.com',
-            'password' => 'temp-pass-123',
         ], $overrides);
     }
 
@@ -58,6 +59,8 @@ class SuperAdminTest extends TestCase
 
     public function test_super_admin_creates_a_teacher_on_trial_with_an_owner_login(): void
     {
+        Notification::fake();
+
         $this->actingAs($this->makeSuperAdmin())
             ->post($this->centralUrl('admin/teachers'), $this->teacherForm())
             ->assertRedirect($this->centralUrl('admin/teachers'))
@@ -72,12 +75,10 @@ class SuperAdminTest extends TestCase
         $this->assertSame('+94771234567', $owner->phone);
         $this->assertTrue(AuditLog::query()->where('action', 'teacher.created')->exists());
 
-        // The new teacher can log in on their own site.
-        auth()->logout();
-        $this->post($this->tenantUrl('kasun', 'manage/login'), [
-            'phone' => '0771234567',
-            'password' => 'temp-pass-123',
-        ])->assertRedirect($this->tenantUrl('kasun', 'manage'));
+        $this->assertSame('kasun@example.com', $owner->email);
+
+        // No password is shared: the owner gets an invite email instead.
+        Notification::assertSentTo($owner, TeacherInvitation::class);
     }
 
     public function test_reserved_and_duplicate_site_names_are_rejected(): void

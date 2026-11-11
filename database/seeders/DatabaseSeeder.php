@@ -14,8 +14,8 @@ use Illuminate\Database\Seeder;
  * Local demo data. Every password is "password".
  *
  *   Super Admin  app.<base>/admin          admin@nexoralms.test
- *   Teacher      kasun.<base>/manage       077 000 0001
- *   Teacher      nimal.<base>/manage       077 000 0002
+ *   Teacher      kasun.<base>/manage       kasun@nexoralms.test or 077 000 0001
+ *   Teacher      nimal.<base>/manage       nimal@nexoralms.test or 077 000 0002
  *   Student      kasun.<base>/login        071 000 0001
  *   Student      nimal.<base>/login        071 000 0001  (same number, separate account)
  */
@@ -37,13 +37,13 @@ class DatabaseSeeder extends Seeder
         );
 
         $demo = [
-            ['slug' => 'kasun', 'display_name' => 'Kasun Perera', 'subject_line' => 'A/L Physics · Sinhala medium', 'owner_name' => 'Kasun Perera', 'phone' => '+94770000001'],
-            ['slug' => 'nimal', 'display_name' => 'Nimal Silva', 'subject_line' => 'O/L Maths · English medium', 'owner_name' => 'Nimal Silva', 'phone' => '+94770000002'],
+            ['slug' => 'kasun', 'display_name' => 'Kasun Perera', 'subject_line' => 'A/L Physics · Sinhala medium', 'owner_name' => 'Kasun Perera', 'phone' => '+94770000001', 'email' => 'kasun@nexoralms.test'],
+            ['slug' => 'nimal', 'display_name' => 'Nimal Silva', 'subject_line' => 'O/L Maths · English medium', 'owner_name' => 'Nimal Silva', 'phone' => '+94770000002', 'email' => 'nimal@nexoralms.test'],
         ];
 
         foreach ($demo as $data) {
             $teacher = Teacher::query()->where('slug', $data['slug'])->first()
-                ?? $createTeacher->handle($data + ['email' => null, 'password' => 'password']);
+                ?? $createTeacher->handle($data + ['password' => 'password'], sendInvite: false);
 
             $current->runAs($teacher, function () use ($teacher, $registerStudent) {
                 $exists = User::query()

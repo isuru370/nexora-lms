@@ -6,6 +6,7 @@ use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Tests\Concerns\BuildsTenant;
 use Tests\TestCase;
@@ -19,6 +20,7 @@ class TeacherProfileTest extends TestCase
         parent::setUp();
 
         Storage::fake('public');
+        Notification::fake();
     }
 
     /**
@@ -44,7 +46,7 @@ class TeacherProfileTest extends TestCase
                 'bio' => 'A/L Physics teacher in Colombo.',
                 'owner_name' => 'Kasun Perera',
                 'phone' => '0771234567',
-                'password' => 'temp-pass-123',
+                'email' => 'kasun@example.com',
                 'photo' => UploadedFile::fake()->image('me.jpg', 900, 600),
                 'logo' => UploadedFile::fake()->image('logo.png', 1200, 400),
             ])
@@ -77,7 +79,7 @@ class TeacherProfileTest extends TestCase
                 'slug' => 'kasun',
                 'owner_name' => 'Kasun Perera',
                 'phone' => '0771234567',
-                'password' => 'temp-pass-123',
+                'email' => 'kasun@example.com',
                 'photo' => UploadedFile::fake()->create('virus.pdf', 10, 'application/pdf'),
             ])
             ->assertSessionHasErrors('photo');
