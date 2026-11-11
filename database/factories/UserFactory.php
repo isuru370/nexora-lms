@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\Role;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -25,12 +27,36 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'teacher_id' => null,
+            'role' => Role::Student,
             'name' => fake()->name(),
+            'phone' => '+947'.fake()->unique()->numerify('########'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'status' => 'active',
             'remember_token' => Str::random(10),
         ];
+    }
+
+    public function superAdmin(): static
+    {
+        return $this->state(fn () => ['teacher_id' => null, 'role' => Role::SuperAdmin]);
+    }
+
+    public function teacherOwner(Teacher $teacher): static
+    {
+        return $this->state(fn () => ['teacher_id' => $teacher->id, 'role' => Role::Teacher]);
+    }
+
+    public function assistant(Teacher $teacher): static
+    {
+        return $this->state(fn () => ['teacher_id' => $teacher->id, 'role' => Role::Assistant, 'permissions' => []]);
+    }
+
+    public function student(Teacher $teacher): static
+    {
+        return $this->state(fn () => ['teacher_id' => $teacher->id, 'role' => Role::Student]);
     }
 
     /**
