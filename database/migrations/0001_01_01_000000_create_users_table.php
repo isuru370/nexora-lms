@@ -11,14 +11,42 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // The tenant. Created first because users belong to it.
+        Schema::create('teachers', function (Blueprint $table) {
+            $table->id();
+            $table->string('slug', 30)->unique();
+            $table->string('display_name');
+            $table->string('subject_line')->nullable();
+            $table->string('logo_path')->nullable();
+            $table->string('brand_color', 7)->nullable();
+            $table->string('phone', 20)->nullable();
+            $table->string('whatsapp', 20)->nullable();
+            $table->string('status', 20)->default('trial')->index();
+            $table->date('trial_ends_on')->nullable();
+            $table->json('features')->nullable();
+            $table->string('custom_domain')->nullable()->unique();
+            $table->timestamps();
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('teacher_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('role', 20)->index();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('phone', 20)->nullable();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->json('permissions')->nullable();
+            $table->string('status', 20)->default('active');
+            $table->timestamp('last_login_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+
+            // Same phone/email can exist under two different teachers.
+            $table->unique(['teacher_id', 'phone']);
+            $table->unique(['teacher_id', 'email']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -42,8 +70,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('teachers');
     }
 };

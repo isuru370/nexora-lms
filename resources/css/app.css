@@ -5,7 +5,70 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/*
+ * NexoraLMS design tokens: deep navy base, warm gold accent.
+ * --color-brand is overridden per teacher (their brand colour) on <body>.
+ */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Inter', 'Noto Sans Sinhala', 'Noto Sans Tamil', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji';
+
+    --color-navy-50: #f2f5fb;
+    --color-navy-100: #e3e9f5;
+    --color-navy-200: #c5d1ea;
+    --color-navy-300: #9aaed8;
+    --color-navy-400: #6a84c0;
+    --color-navy-500: #4766a8;
+    --color-navy-600: #354f8c;
+    --color-navy-700: #2b3f71;
+    --color-navy-800: #1f2e55;
+    --color-navy-900: #16213f;
+    --color-navy-950: #0d1428;
+
+    --color-gold-50: #fdf9ec;
+    --color-gold-100: #faf0cc;
+    --color-gold-200: #f4df95;
+    --color-gold-300: #edca5c;
+    --color-gold-400: #e3b536;
+    --color-gold-500: #c9a227;
+    --color-gold-600: #a7801d;
+    --color-gold-700: #85601b;
+    --color-gold-800: #6e4e1c;
+    --color-gold-900: #5d411c;
+
+    --color-brand: #c9a227;
+
+    --shadow-card: 0 1px 2px rgb(13 20 40 / 0.04), 0 4px 16px -4px rgb(13 20 40 / 0.08);
+    --shadow-float: 0 10px 40px -10px rgb(13 20 40 / 0.25);
+}
+
+@layer base {
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        @apply bg-slate-50 text-slate-800;
+    }
+
+    [x-cloak] {
+        display: none !important;
+    }
+}
+
+@layer components {
+    .bg-hero {
+        background-image:
+            radial-gradient(60rem 30rem at 110% -10%, rgb(201 162 39 / 0.22), transparent 60%),
+            radial-gradient(40rem 30rem at -10% 110%, rgb(71 102 168 / 0.35), transparent 60%),
+            linear-gradient(160deg, var(--color-navy-900), var(--color-navy-950));
+    }
+
+    .bg-grid {
+        background-image:
+            linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
 }

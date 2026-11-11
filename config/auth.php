@@ -63,7 +63,7 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'tenant-eloquent', // App\Tenancy\TenantUserProvider
             'model' => env('AUTH_MODEL', User::class),
         ],
 

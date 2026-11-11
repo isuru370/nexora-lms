@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'UTC', // DB in UTC; display uses config('nexora.display_timezone')
 
     /*
     |--------------------------------------------------------------------------
