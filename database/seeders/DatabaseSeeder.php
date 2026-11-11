@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Enums\OfferingType;
 use App\Enums\Role;
+use App\Models\Offering;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Services\Students\RegisterStudent;
@@ -45,7 +47,17 @@ class DatabaseSeeder extends Seeder
             $teacher = Teacher::query()->where('slug', $data['slug'])->first()
                 ?? $createTeacher->handle($data + ['password' => 'password'], sendInvite: false);
 
-            $current->runAs($teacher, function () use ($teacher, $registerStudent) {
+            $current->runAs($teacher, function () use ($teacher, $registerStudent, $data) {
+                Offering::query()->firstOrCreate(['slug' => 'demo-class'], [
+                    'type' => OfferingType::MonthlyClass,
+                    'title' => $data['subject_line'].' – Theory',
+                    'subject' => explode(' · ', $data['subject_line'])[0],
+                    'grade' => '2027',
+                    'fee' => 2000,
+                    'is_published' => true,
+                    'description' => 'Demo class. Add lessons from the teacher panel.',
+                ]);
+
                 $exists = User::query()
                     ->where('teacher_id', $teacher->id)
                     ->where('phone', '+94710000001')

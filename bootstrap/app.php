@@ -2,6 +2,7 @@
 
 use App\Enums\Role;
 use App\Http\Middleware\EnsureCentral;
+use App\Http\Middleware\EnsurePermission;
 use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\EnsureTenant;
 use App\Http\Middleware\ResolveTenant;
@@ -36,6 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'tenant' => EnsureTenant::class,
             'central' => EnsureCentral::class,
             'role' => EnsureRole::class,
+            'permission' => EnsurePermission::class,
         ]);
 
         // Where guests are sent when a page needs login.

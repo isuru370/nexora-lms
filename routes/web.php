@@ -68,6 +68,20 @@ Route::middleware('tenant')->group(function () {
             Route::get('/', Manage\DashboardController::class)->name('dashboard');
         });
 
+        // Classes, courses and lessons (owner, or assistants with "lessons" permission)
+        Route::middleware(['auth', 'role:teacher,assistant', 'permission:lessons'])->group(function () {
+            Route::get('youtube/lookup', [Manage\LessonController::class, 'lookup'])->name('youtube.lookup');
+            Route::resource('classes', Manage\OfferingController::class)->parameters(['classes' => 'offering']);
+
+            Route::scopeBindings()->group(function () {
+                Route::get('classes/{offering}/lessons/create', [Manage\LessonController::class, 'create'])->name('lessons.create');
+                Route::post('classes/{offering}/lessons', [Manage\LessonController::class, 'store'])->name('lessons.store');
+                Route::get('classes/{offering}/lessons/{lesson}/edit', [Manage\LessonController::class, 'edit'])->name('lessons.edit');
+                Route::put('classes/{offering}/lessons/{lesson}', [Manage\LessonController::class, 'update'])->name('lessons.update');
+                Route::delete('classes/{offering}/lessons/{lesson}', [Manage\LessonController::class, 'destroy'])->name('lessons.destroy');
+            });
+        });
+
         // Owner only
         Route::middleware(['auth', 'role:teacher'])->group(function () {
             Route::get('settings', [Manage\SettingsController::class, 'edit'])->name('settings');
@@ -77,6 +91,8 @@ Route::middleware('tenant')->group(function () {
 
     // Public + student portal
     Route::get('/', Tenant\LandingController::class)->name('tenant.home');
+    Route::get('classes/{offering:slug}', [Tenant\OfferingController::class, 'show'])->name('tenant.offerings.show');
+    Route::get('lessons/{lesson}', [Tenant\LessonController::class, 'show'])->name('tenant.lessons.show');
 
     Route::middleware('guest')->group(function () {
         Route::get('login', [Student\AuthController::class, 'create'])->name('student.login');
@@ -88,5 +104,7 @@ Route::middleware('tenant')->group(function () {
     Route::middleware(['auth', 'role:student'])->group(function () {
         Route::post('logout', [Student\AuthController::class, 'destroy'])->name('student.logout');
         Route::get('dashboard', Student\DashboardController::class)->name('student.dashboard');
+        Route::get('my-classes', [Student\ClassesController::class, 'index'])->name('student.classes');
+        Route::post('classes/{offering:slug}/enrol', [Student\EnrolmentController::class, 'store'])->name('student.enrol');
     });
 });

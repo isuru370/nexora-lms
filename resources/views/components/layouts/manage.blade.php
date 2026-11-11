@@ -15,8 +15,9 @@
         <x-ui.nav-link :href="route('manage.dashboard')" icon="layout" :active="request()->routeIs('manage.dashboard')">{{ __('Dashboard') }}</x-ui.nav-link>
 
         <p class="px-3 pt-5 pb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{{ __('Teaching') }}</p>
-        <x-ui.nav-link icon="book" soon>{{ __('Classes') }}</x-ui.nav-link>
-        <x-ui.nav-link icon="play" soon>{{ __('Lessons') }}</x-ui.nav-link>
+        @if (auth()->user()->hasPermission('lessons'))
+            <x-ui.nav-link :href="route('manage.classes.index')" icon="book" :active="request()->routeIs('manage.classes.*', 'manage.lessons.*')">{{ __('Classes & lessons') }}</x-ui.nav-link>
+        @endif
         <x-ui.nav-link icon="video" soon>{{ __('Live classes') }}</x-ui.nav-link>
         <x-ui.nav-link icon="megaphone" soon>{{ __('Announcements') }}</x-ui.nav-link>
 
