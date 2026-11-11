@@ -58,6 +58,12 @@ Route::middleware('tenant')->group(function () {
             Route::post('logout', [Manage\AuthController::class, 'destroy'])->name('logout');
             Route::get('/', Manage\DashboardController::class)->name('dashboard');
         });
+
+        // Owner only
+        Route::middleware(['auth', 'role:teacher'])->group(function () {
+            Route::get('settings', [Manage\SettingsController::class, 'edit'])->name('settings');
+            Route::put('settings', [Manage\SettingsController::class, 'update'])->name('settings.update');
+        });
     });
 
     // Public + student portal

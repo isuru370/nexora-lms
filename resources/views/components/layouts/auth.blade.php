@@ -24,10 +24,7 @@
 
             <div class="relative">
                 @if ($teacher)
-                    <div class="flex items-center gap-3">
-                        <x-ui.avatar :initials="$teacher->initials()" :color="$brandColor" size="md" class="ring-white/20" />
-                        <span class="text-lg font-semibold text-white">{{ $teacher->display_name }}</span>
-                    </div>
+                    <x-teacher.brand :teacher="$teacher" dark size="md" />
                 @else
                     <x-ui.logo dark />
                 @endif
@@ -56,10 +53,7 @@
             <div class="mx-auto w-full max-w-sm">
                 <div class="mb-8 lg:hidden">
                     @if ($teacher)
-                        <div class="flex items-center gap-3">
-                            <x-ui.avatar :initials="$teacher->initials()" :color="$brandColor" />
-                            <span class="text-base font-semibold text-slate-900">{{ $teacher->display_name }}</span>
-                        </div>
+                        <x-teacher.brand :teacher="$teacher" size="md" />
                     @else
                         <x-ui.logo />
                     @endif

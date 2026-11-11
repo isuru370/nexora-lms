@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             return;
         }
 
+        $this->call(PlatformSeeder::class);
+
         User::query()->firstOrCreate(
             ['email' => 'admin@nexoralms.test', 'teacher_id' => null],
             ['name' => 'Nexora Admin', 'role' => Role::SuperAdmin, 'password' => 'password'],

@@ -17,7 +17,7 @@
 
         @forelse ($latestTeachers as $teacher)
             <div class="flex items-center gap-4 border-b border-slate-100 px-5 py-3.5 last:border-0 sm:px-6">
-                <x-ui.avatar :initials="$teacher->initials()" :color="$teacher->brandColor()" size="sm" />
+                <x-ui.avatar :src="$teacher->photoUrl()" :initials="$teacher->initials()" :color="$teacher->brandColor()" size="sm" />
                 <div class="min-w-0 flex-1">
                     <p class="truncate text-sm font-medium text-slate-900">{{ $teacher->display_name }}</p>
                     <a href="{{ $teacher->url() }}" target="_blank" class="truncate text-xs text-slate-500 hover:text-ink-700">{{ \App\Support\Domains::tenantHost($teacher->slug) }}</a>
