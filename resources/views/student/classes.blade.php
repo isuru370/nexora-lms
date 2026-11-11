@@ -1,14 +1,11 @@
 <x-layouts.student :title="__('My classes')">
     <div class="flex items-center justify-between gap-3">
         <h1 class="text-xl font-semibold tracking-tight text-slate-900">{{ __('My classes') }}</h1>
-        <x-ui.button :href="route('tenant.home')" variant="secondary" size="sm">{{ __('Find classes') }}</x-ui.button>
     </div>
 
     @if ($enrolments->isEmpty())
         <x-ui.card class="mt-6">
-            <x-ui.empty-state icon="book" :title="__('You have not joined a class yet')" :description="__('Open a class on the teacher\'s page and tap Join class.')">
-                <x-ui.button :href="route('tenant.home')" variant="brand">{{ __('See classes') }}</x-ui.button>
-            </x-ui.empty-state>
+            <x-ui.empty-state icon="book" :title="__('You have not joined a class yet')" :description="__('Pick one of the classes below and tap Join class.')" />
         </x-ui.card>
     @else
         <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -22,4 +19,6 @@
             @endforeach
         </div>
     @endif
+
+    @include('student.partials.available')
 </x-layouts.student>

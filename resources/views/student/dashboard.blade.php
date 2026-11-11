@@ -45,9 +45,7 @@
 
     @if ($enrolments->isEmpty())
         <x-ui.card class="mt-4">
-            <x-ui.empty-state icon="book" :title="__('You have not joined a class yet')" :description="__('Pick a class and tap Join class.')">
-                <x-ui.button :href="route('tenant.home')" variant="brand">{{ __('See classes') }}</x-ui.button>
-            </x-ui.empty-state>
+            <x-ui.empty-state icon="book" :title="__('You have not joined a class yet')" :description="__('Pick one of the classes below and tap Join class.')" />
         </x-ui.card>
     @else
         <div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -56,4 +54,6 @@
             @endforeach
         </div>
     @endif
+
+    @include('student.partials.available')
 </x-layouts.student>
