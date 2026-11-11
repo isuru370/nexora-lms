@@ -1,7 +1,7 @@
 @props(['title', 'description' => null, 'icon' => 'sparkles'])
 
 <div {{ $attributes->merge(['class' => 'flex flex-col items-center px-6 py-12 text-center']) }}>
-    <span class="grid size-12 place-items-center rounded-2xl bg-gold-50 text-gold-600 ring-1 ring-gold-100">
+    <span class="grid size-12 place-items-center rounded-2xl bg-accent-50 text-accent-600 ring-1 ring-accent-100">
         <x-ui.icon :name="$icon" class="size-6" />
     </span>
     <h3 class="mt-4 text-base font-semibold text-slate-900">{{ $title }}</h3>

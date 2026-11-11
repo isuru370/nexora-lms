@@ -59,7 +59,7 @@ class Teacher extends Model
 
     public function brandColor(): string
     {
-        return $this->brand_color ?: '#c9a227';
+        return $this->brand_color ?: '#dc2626';
     }
 
     public function initials(): string

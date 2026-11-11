@@ -4,31 +4,31 @@
 
         <header class="relative mx-auto flex h-20 max-w-6xl items-center justify-between px-5 sm:px-8">
             <x-ui.logo dark />
-            <x-ui.button :href="route('admin.login')" variant="ghost" size="sm" class="text-navy-100 hover:bg-white/10 hover:text-white">
+            <x-ui.button :href="route('admin.login')" variant="ghost" size="sm" class="text-ink-100 hover:bg-white/10 hover:text-white">
                 {{ __('Admin login') }}
             </x-ui.button>
         </header>
 
         <section class="relative mx-auto max-w-6xl px-5 pt-14 pb-24 sm:px-8 sm:pt-20 sm:pb-32">
-            <x-ui.badge color="gold" class="bg-gold-400/10 text-gold-200 ring-gold-400/30">
+            <x-ui.badge color="accent" class="bg-white/10 text-white ring-white/20">
                 <x-ui.icon name="sparkles" class="size-3.5" /> {{ __('Built for Sri Lanka') }}
             </x-ui.badge>
 
             <h1 class="mt-6 max-w-3xl text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl">
                 {{ __('Your own online class site.') }}
-                <span class="text-gold-400">{{ __('Ready in minutes.') }}</span>
+                <span class="text-gradient">{{ __('Ready in minutes.') }}</span>
             </h1>
 
-            <p class="mt-6 max-w-xl text-lg leading-relaxed text-navy-200">
+            <p class="mt-6 max-w-xl text-lg leading-relaxed text-ink-200">
                 {{ __('Video lessons, Zoom live classes and monthly fee collection under your own name — simple for you, simple for your students.') }}
             </p>
 
             <div class="mt-10 flex flex-wrap items-center gap-3">
-                <x-ui.button variant="gold" size="lg" type="button" disabled>
+                <x-ui.button variant="light" size="lg" type="button" disabled>
                     {{ __('Start 1-month free trial') }}
                     <x-ui.icon name="arrow-right" class="size-4" />
                 </x-ui.button>
-                <span class="text-sm text-navy-300">{{ __('Self sign-up opens soon.') }}</span>
+                <span class="text-sm text-ink-300">{{ __('Self sign-up opens soon.') }}</span>
             </div>
         </section>
     </div>
@@ -40,7 +40,7 @@
             ['icon' => 'wallet', 'title' => __('Fee collection'), 'text' => __('Monthly payments, reminders and a clear list of who has paid.')],
         ] as $feature)
             <div class="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-200/70">
-                <span class="grid size-11 place-items-center rounded-xl bg-navy-900 text-gold-400">
+                <span class="grid size-11 place-items-center rounded-xl bg-gradient-to-br from-accent-700 to-accent-500 text-white shadow-sm shadow-accent-600/30">
                     <x-ui.icon :name="$feature['icon']" class="size-5" />
                 </span>
                 <h3 class="mt-4 text-base font-semibold text-slate-900">{{ $feature['title'] }}</h3>

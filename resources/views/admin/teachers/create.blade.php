@@ -18,7 +18,7 @@
                         autocomplete="off" spellcheck="false" />
                     <p class="text-sm text-slate-500" x-show="slug">
                         {{ __('Site address:') }}
-                        <span class="font-medium text-navy-700" x-text="slug + '.{{ \App\Support\Domains::base() }}'"></span>
+                        <span class="font-medium text-ink-700" x-text="slug + '.{{ \App\Support\Domains::base() }}'"></span>
                     </p>
                 </div>
             </div>

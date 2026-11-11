@@ -44,7 +44,7 @@
 
                     <div x-data="{ open: false }" class="relative">
                         <button type="button" class="flex items-center gap-1 rounded-full p-0.5 hover:ring-2 hover:ring-slate-200" x-on:click="open = ! open" x-on:click.outside="open = false">
-                            <x-ui.avatar :initials="auth()->user()->initials()" size="sm" color="var(--color-navy-700)" />
+                            <x-ui.avatar :initials="auth()->user()->initials()" size="sm" color="var(--color-ink-700)" />
                         </button>
                         <div x-cloak x-show="open" x-transition.origin.top.right class="absolute right-0 mt-2 w-56 rounded-2xl bg-white p-2 shadow-float ring-1 ring-slate-200">
                             <div class="px-3 py-2">

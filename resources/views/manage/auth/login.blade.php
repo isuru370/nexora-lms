@@ -12,7 +12,7 @@
         <x-ui.input name="password" type="password" :label="__('Password')" autocomplete="current-password" required />
 
         <label class="flex items-center gap-2 text-sm text-slate-600">
-            <input type="checkbox" name="remember" value="1" class="size-4 rounded border-slate-300 text-navy-900 focus:ring-navy-500">
+            <input type="checkbox" name="remember" value="1" class="size-4 rounded border-slate-300 text-ink-900 focus:ring-ink-500">
             {{ __('Keep me logged in') }}
         </label>
 

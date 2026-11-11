@@ -40,7 +40,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-3.5">
-                                    <a href="{{ $teacher->url() }}" target="_blank" class="inline-flex items-center gap-1 text-navy-700 hover:underline">
+                                    <a href="{{ $teacher->url() }}" target="_blank" class="inline-flex items-center gap-1 text-ink-700 hover:underline">
                                         {{ $teacher->slug }} <x-ui.icon name="external" class="size-3.5" />
                                     </a>
                                 </td>

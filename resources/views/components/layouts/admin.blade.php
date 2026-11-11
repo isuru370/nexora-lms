@@ -6,7 +6,7 @@
     </x-slot:brand>
 
     <x-slot:nav>
-        <p class="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-navy-400">{{ __('Platform') }}</p>
+        <p class="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-ink-400">{{ __('Platform') }}</p>
         <x-ui.nav-link :href="route('admin.dashboard')" icon="layout" :active="request()->routeIs('admin.dashboard')">{{ __('Dashboard') }}</x-ui.nav-link>
         <x-ui.nav-link :href="route('admin.teachers.index')" icon="users" :active="request()->routeIs('admin.teachers.*')">{{ __('Teachers') }}</x-ui.nav-link>
         <x-ui.nav-link icon="receipt" soon>{{ __('Bills') }}</x-ui.nav-link>

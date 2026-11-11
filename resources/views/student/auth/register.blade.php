@@ -24,6 +24,6 @@
 
     <x-slot:footer>
         {{ __('Already registered?') }}
-        <a href="{{ route('student.login') }}" class="font-semibold text-navy-800 hover:underline">{{ __('Log in') }}</a>
+        <a href="{{ route('student.login') }}" class="font-semibold text-ink-800 hover:underline">{{ __('Log in') }}</a>
     </x-slot:footer>
 </x-layouts.auth>

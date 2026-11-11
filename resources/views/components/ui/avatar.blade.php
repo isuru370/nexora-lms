@@ -6,5 +6,5 @@
 
 <span
     {{ $attributes->merge(['class' => 'grid shrink-0 place-items-center rounded-full font-semibold text-white ring-2 ring-white '.($sizes[$size] ?? $sizes['md'])]) }}
-    style="background-color: {{ $color ?? 'var(--color-navy-700)' }}"
+    style="background-color: {{ $color ?? 'var(--color-ink-700)' }}"
 >{{ $initials }}</span>

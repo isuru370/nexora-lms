@@ -2,21 +2,21 @@
     Sidebar app shell shared by the Super Admin and the teacher panel.
     Slots: nav (sidebar links), brand (sidebar top), actions (page header buttons).
 --}}
-@props(['title', 'subtitle' => null, 'brandColor' => '#c9a227', 'pageTitle' => null, 'logoutRoute'])
+@props(['title', 'subtitle' => null, 'brandColor' => '#dc2626', 'pageTitle' => null, 'logoutRoute'])
 
 <x-layouts.base :title="$title" :brand="$pageTitle" style="--color-brand: {{ $brandColor }}">
     <div x-data="{ sidebar: false }" class="min-h-full">
         {{-- Mobile sidebar backdrop --}}
-        <div x-cloak x-show="sidebar" x-transition.opacity class="fixed inset-0 z-40 bg-navy-950/60 backdrop-blur-sm lg:hidden" x-on:click="sidebar = false"></div>
+        <div x-cloak x-show="sidebar" x-transition.opacity class="fixed inset-0 z-40 bg-ink-950/60 backdrop-blur-sm lg:hidden" x-on:click="sidebar = false"></div>
 
         {{-- Sidebar --}}
         <aside
-            class="fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col bg-navy-950 transition-transform duration-200 lg:translate-x-0"
+            class="fixed inset-y-0 left-0 z-50 flex w-72 -translate-x-full flex-col bg-gradient-to-b from-ink-950 via-ink-900 to-ink-800 transition-transform duration-200 lg:translate-x-0"
             x-bind:class="sidebar && 'translate-x-0'"
         >
             <div class="flex h-16 items-center justify-between px-5">
                 {{ $brand }}
-                <button type="button" class="text-navy-300 hover:text-white lg:hidden" x-on:click="sidebar = false" aria-label="{{ __('Close menu') }}">
+                <button type="button" class="text-ink-300 hover:text-white lg:hidden" x-on:click="sidebar = false" aria-label="{{ __('Close menu') }}">
                     <x-ui.icon name="x" />
                 </button>
             </div>
@@ -27,14 +27,14 @@
 
             <div class="border-t border-white/5 p-3">
                 <div class="flex items-center gap-3 rounded-xl px-2 py-2">
-                    <x-ui.avatar :initials="auth()->user()->initials()" size="sm" color="var(--color-navy-700)" class="ring-navy-800" />
+                    <x-ui.avatar :initials="auth()->user()->initials()" size="sm" color="var(--color-ink-700)" class="ring-ink-800" />
                     <div class="min-w-0 flex-1">
                         <p class="truncate text-sm font-medium text-white">{{ auth()->user()->name }}</p>
-                        <p class="truncate text-xs text-navy-300">{{ auth()->user()->role->label() }}</p>
+                        <p class="truncate text-xs text-ink-300">{{ auth()->user()->role->label() }}</p>
                     </div>
                     <form method="POST" action="{{ route($logoutRoute) }}">
                         @csrf
-                        <button type="submit" class="rounded-lg p-2 text-navy-300 hover:bg-white/5 hover:text-white" title="{{ __('Log out') }}">
+                        <button type="submit" class="rounded-lg p-2 text-ink-300 hover:bg-white/5 hover:text-white" title="{{ __('Log out') }}">
                             <x-ui.icon name="logout" class="size-[18px]" />
                         </button>
                     </form>
