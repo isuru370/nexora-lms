@@ -3,6 +3,12 @@
         <x-ui.button :href="route('admin.teachers.create')" icon="plus" size="sm">{{ __('New teacher') }}</x-ui.button>
     </x-slot:actions>
 
+    @error('invite')
+        <div class="mb-5 flex items-center gap-2 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-200">
+            <x-ui.icon name="alert" class="size-5 shrink-0" /> {{ $message }}
+        </div>
+    @enderror
+
     <form method="GET" class="mb-5 max-w-md">
         <x-ui.input name="q" :value="$search" :placeholder="__('Search by name, site or phone')" :prefix="null" aria-label="{{ __('Search') }}" />
     </form>
@@ -25,6 +31,7 @@
                             <th class="px-6 py-3">{{ __('Status') }}</th>
                             <th class="px-6 py-3 text-right">{{ __('Students') }}</th>
                             <th class="px-6 py-3">{{ __('Trial ends') }}</th>
+                            <th class="px-6 py-3"><span class="sr-only">{{ __('Actions') }}</span></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
@@ -48,6 +55,12 @@
                                 <td class="px-6 py-3.5"><x-ui.badge :color="$teacher->status->color()">{{ $teacher->status->label() }}</x-ui.badge></td>
                                 <td class="px-6 py-3.5 text-right tabular-nums text-slate-700">{{ number_format($teacher->students_count) }}</td>
                                 <td class="px-6 py-3.5 text-slate-600">{{ $teacher->trial_ends_on?->format('d M Y') ?? '—' }}</td>
+                                <td class="px-6 py-3.5 text-right">
+                                    <form method="POST" action="{{ route('admin.teachers.invite', $teacher) }}">
+                                        @csrf
+                                        <x-ui.button variant="ghost" size="sm" icon="link" title="{{ __('Email a new set-password link to the teacher') }}">{{ __('Resend invite') }}</x-ui.button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

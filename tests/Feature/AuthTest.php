@@ -109,9 +109,9 @@ class AuthTest extends TestCase
         $this->makeStudent($this->kasun, '+94712345678');
 
         $this->post($this->tenantUrl('kasun', 'manage/login'), [
-            'phone' => '0712345678',
+            'login' => '0712345678',
             'password' => 'password',
-        ])->assertSessionHasErrors('phone');
+        ])->assertSessionHasErrors('login');
 
         $this->assertGuest();
     }
@@ -128,7 +128,7 @@ class AuthTest extends TestCase
     public function test_teacher_can_log_in_to_the_panel(): void
     {
         $this->post($this->tenantUrl('kasun', 'manage/login'), [
-            'phone' => '077 000 0001',
+            'login' => '077 000 0001',
             'password' => 'password',
         ])->assertRedirect($this->tenantUrl('kasun', 'manage'));
 

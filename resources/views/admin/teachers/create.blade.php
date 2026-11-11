@@ -34,18 +34,22 @@
             </div>
         </x-ui.card>
 
-        <x-ui.card :title="__('Owner login')" :description="__('The teacher logs in to the panel with this phone number.')">
+        <x-ui.card :title="__('Owner login')" :description="__('The teacher logs in with this email or mobile number.')">
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-ui.input name="owner_name" :label="__('Owner name')" required class="sm:col-span-2" />
+                <x-ui.input name="email" type="email" :label="__('Email')" placeholder="teacher@example.com" autocomplete="off" required />
                 <x-ui.input name="phone" type="tel" :label="__('Mobile number')" placeholder="077 123 4567" inputmode="tel" required />
-                <x-ui.input name="email" type="email" :label="__('Email')" :hint="__('Optional')" />
-                <x-ui.input name="password" type="password" :label="__('Temporary password')" :hint="__('At least 8 characters. Share it with the teacher.')" autocomplete="new-password" required class="sm:col-span-2" />
+            </div>
+
+            <div class="mt-5 flex items-start gap-3 rounded-xl bg-accent-50/60 px-4 py-3 text-sm text-ink-800 ring-1 ring-accent-100">
+                <x-ui.icon name="sparkles" class="mt-0.5 size-4 shrink-0 text-accent-600" />
+                <p>{{ __('We email the teacher their site link and a "Set your password" button (valid 48 hours). You never need to share a password.') }}</p>
             </div>
         </x-ui.card>
 
         <div class="flex items-center justify-end gap-3">
             <x-ui.button :href="route('admin.teachers.index')" variant="secondary">{{ __('Cancel') }}</x-ui.button>
-            <x-ui.button icon="check">{{ __('Create teacher') }}</x-ui.button>
+            <x-ui.button icon="check">{{ __('Create and send invite') }}</x-ui.button>
         </div>
     </form>
 </x-layouts.admin>

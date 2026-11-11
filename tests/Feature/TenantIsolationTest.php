@@ -70,9 +70,9 @@ class TenantIsolationTest extends TestCase
     {
         // Kasun's owner phone + password, tried on Nimal's site.
         $this->post($this->tenantUrl('nimal', 'manage/login'), [
-            'phone' => '0770000001',
+            'login' => '0770000001',
             'password' => 'password',
-        ])->assertSessionHasErrors('phone');
+        ])->assertSessionHasErrors('login');
 
         $this->assertGuest();
     }

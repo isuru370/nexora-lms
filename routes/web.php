@@ -29,6 +29,7 @@ Route::domain(Domains::central())->middleware('central')->group(function () {
             Route::get('teachers', [Admin\TeacherController::class, 'index'])->name('teachers.index');
             Route::get('teachers/create', [Admin\TeacherController::class, 'create'])->name('teachers.create');
             Route::post('teachers', [Admin\TeacherController::class, 'store'])->name('teachers.store');
+            Route::post('teachers/{teacher}/invite', [Admin\TeacherController::class, 'invite'])->name('teachers.invite');
         });
     });
 });
@@ -52,6 +53,14 @@ Route::middleware('tenant')->group(function () {
         Route::middleware('guest')->group(function () {
             Route::get('login', [Manage\AuthController::class, 'create'])->name('login');
             Route::post('login', [Manage\AuthController::class, 'store'])->name('login.store');
+            Route::get('forgot-password', [Manage\PasswordController::class, 'request'])->name('password.request');
+            Route::post('forgot-password', [Manage\PasswordController::class, 'email'])->name('password.email');
+        });
+
+        // Invite / reset links (signed, single use)
+        Route::middleware('signed')->group(function () {
+            Route::get('set-password/{user}/{fingerprint}', [Manage\PasswordController::class, 'edit'])->name('password.edit');
+            Route::post('set-password/{user}/{fingerprint}', [Manage\PasswordController::class, 'update'])->name('password.update');
         });
 
         Route::middleware(['auth', 'role:teacher,assistant'])->group(function () {

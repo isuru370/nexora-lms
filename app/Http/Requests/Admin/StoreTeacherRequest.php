@@ -6,7 +6,6 @@ use App\Enums\Role;
 use App\Support\Phone;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class StoreTeacherRequest extends FormRequest
 {
@@ -19,6 +18,7 @@ class StoreTeacherRequest extends FormRequest
     {
         $this->merge([
             'slug' => strtolower(trim((string) $this->input('slug'))),
+            'email' => strtolower(trim((string) $this->input('email'))),
             'phone' => Phone::normalize($this->input('phone')) ?? $this->input('phone'),
         ]);
     }
@@ -42,8 +42,7 @@ class StoreTeacherRequest extends FormRequest
             ],
             'owner_name' => ['required', 'string', 'max:100'],
             'phone' => ['required', 'string', 'regex:/^\+94\d{9}$/'],
-            'email' => ['nullable', 'email', 'max:150'],
-            'password' => ['required', Password::min(8)],
+            'email' => ['required', 'email', 'max:150'],
         ];
     }
 

@@ -37,11 +37,13 @@ Demo logins after `--seed` (password is `password` for all):
 | Where | Login |
 |---|---|
 | `app.nexoralms.localhost/admin` | `admin@nexoralms.test` |
-| `kasun.nexoralms.localhost/manage` | `077 000 0001` |
-| `nimal.nexoralms.localhost/manage` | `077 000 0002` |
+| `kasun.nexoralms.localhost/manage` | `kasun@nexoralms.test` or `077 000 0001` |
+| `nimal.nexoralms.localhost/manage` | `nimal@nexoralms.test` or `077 000 0002` |
 | `kasun.nexoralms.localhost/login` | `071 000 0001` |
 
 Create a real Super Admin with `php artisan nexora:create-super-admin`.
+
+New teachers created by the Super Admin get an email with their site link and a "Set your password" link (valid 48 hours, single use). With `MAIL_MAILER=log` the email is written to `storage/logs/laravel.log`.
 
 ## Deploy and production check
 
