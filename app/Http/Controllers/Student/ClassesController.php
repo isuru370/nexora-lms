@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Enrolment;
+use App\Models\Offering;
 use App\Support\CurrentStudent;
 use Illuminate\View\View;
 
@@ -20,6 +21,11 @@ class ClassesController extends Controller
             ->latest('enrolled_at')
             ->get();
 
-        return view('student.classes', compact('enrolments'));
+        $available = Offering::query()->published()
+            ->whereNotIn('id', $enrolments->pluck('offering_id'))
+            ->orderBy('subject')->orderBy('sort')
+            ->get();
+
+        return view('student.classes', compact('enrolments', 'available'));
     }
 }

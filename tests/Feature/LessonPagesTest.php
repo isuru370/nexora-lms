@@ -134,4 +134,21 @@ class LessonPagesTest extends TestCase
     {
         return app(CurrentTeacher::class)->runAs($this->kasun, fn () => Enrolment::query()->count());
     }
+
+    public function test_student_sees_classes_they_can_join_on_dashboard_and_classes_page(): void
+    {
+        $joined = $this->makeOffering($this->kasun, ['title' => 'Joined Physics']);
+        $this->makeOffering($this->kasun, ['title' => 'Open Chemistry']);
+        $this->makeOffering($this->kasun, ['title' => 'Hidden Draft', 'is_published' => false]);
+        $this->enrol($this->student, $joined);
+
+        foreach (['dashboard', 'my-classes'] as $page) {
+            $this->actingAs($this->student)->get($this->tenantUrl('kasun', $page))
+                ->assertOk()
+                ->assertSee('Classes you can join')
+                ->assertSee('Open Chemistry')
+                ->assertSee('Joined Physics')
+                ->assertDontSee('Hidden Draft');
+        }
+    }
 }
